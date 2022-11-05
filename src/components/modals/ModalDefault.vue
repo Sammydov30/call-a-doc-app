@@ -6,16 +6,7 @@
         style="display:block">
             <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                
-                <button type="button" @click="OpenCloseFun()" class="btn-close" ></button>
-                </div>
-                <div class="modal-body">
-                <slot></slot>
-                </div>
-                <div class="modal-footer">
-                <button type="button"  @click="OpenCloseFun()" :class="'btn btn-'+variant" >Close</button>
-                </div>
+              <slot></slot>
             </div>
             </div>
         </div>

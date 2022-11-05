@@ -8,20 +8,55 @@
       </div>
       <div class="card-body">
         <div v-show="erroneous" class="alert alert-danger errormsg"></div>
-        <form role="form" class="text-start" @submit="register">
+
+        <form v-if="!emailsent" role="form" class="text-start" @submit="register">
           <label>Email</label>
-          <vsud-input icon="fas fa-email" type="email" placeholder="Email" v-model="user.email" />
-          <label>Password</label>
-          <vsud-input icon="fas fa-email" type="password" placeholder="Password" v-model="user.password" />
+          <vsud-input icon="fa fa-envelope-o" iconDir="left" type="email" placeholder="Email" v-model="user.email" />
+
           <div class="text-center">
-            <VsudSocialButton v-if="loading" color="blue">
+            <VsudSocialButton v-if="loading" color="blue" :disabled="loading">
+              <div class="spinner-grow spinner-grow-sm" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
               Loading...
             </VsudSocialButton>
             <VsudSocialButton v-else type="submit" color="blue">
               Continue with email
             </VsudSocialButton>
           </div>
+          <div class="px-1 pt-0 text-center px-lg-2">
+            <p class="mx-auto mb-4 text-sm">
+              Already have an account?
+              <router-link
+              :to="{ name: 'Sign In' }"
+              class="text-info text-gradient font-weight-bold"
+              >
+                Sign in
+              </router-link>
+            </p>
+          </div>
         </form>
+
+        <form v-else role="form" class="text-start" @submit="verifyemail">
+          <label>Email</label>
+          <vsud-input icon="fas fa-email" iconDir="left" type="email" placeholder="Email" :disabled="true" />
+          <p class="text-center px-3" style="color: #9AA5B1; font-size: 11px;"><small>We just sent you a temporary sign up code. 
+            Please check your email inbox and paste it below</small></p>
+          <label>Sign up code</label>
+          <vsud-input type="text" placeholder="Enter Sign up code" v-model="forotp.otp" />
+          <div class="text-center">
+            <VsudSocialButton v-if="loading" color="blue" :disabled="loading">
+              <div class="spinner-grow spinner-grow-sm" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              Creating Account
+            </VsudSocialButton>
+            <VsudSocialButton v-else type="submit" color="blue">
+              Create your account
+            </VsudSocialButton>
+          </div>
+        </form>
+
         <hr><br>
         <VsudSocialButton color="black">
           <img src="../assets/img/google-logo.png" style="width: 20px;" alt="">
@@ -66,11 +101,15 @@ export default {
       logoimg,
       user: {
         email: "",
-        password: "",
-        password_confirmation: "Sendap30"
       },
+      forotp: {
+        email: "",
+        otp: "",
+      },
+      btntitle: "Continue with email",
       loading: false,
       erroneous: false,
+      emailsent: false,
     }
   },
   beforeMount() {
@@ -86,11 +125,10 @@ export default {
       this.loading = true;
       store
         .dispatch("register", this.user)
-        .then(() => {
+        .then((response) => {
           this.loading = false;
-          this.$router.push({
-            name: "Sign In",
-          });
+          this.forotp.email=response.data.email;
+          this.emailsent = true;
           console.log('successful');
           
         })
@@ -103,10 +141,46 @@ export default {
               console.log(error.response.data.status);
               this.erroneous= true;
               document.getElementsByClassName("errormsg")[0].innerHTML=error.response.data.message;
+            }else{
+              console.log(error.response.data.status);
+              this.erroneous= true;
+              document.getElementsByClassName("errormsg")[0].innerHTML=error.response.data.message;
             }
           }
         });
+    },
+    verifyemail(ev) {
+      ev.preventDefault();
+      this.loading = true;
+      store
+        .dispatch("verifyemail", this.forotp)
+        .then((response) => {
+          this.loading = false;
+          this.$swal('Great', '', 'success');
+          setTimeout(() => 
+            this.$router.push({
+              path: "select-type",
+              query: { email: response.data.email, status: '1' }
+            })
+          , 1000);
+          console.log('successful');
+          
+        })
+        .catch((error) => {
+          this.loading = false;
+          console.log(error);
+          if (error.response) {
+            //if (error.response.status === 422) {
+              // errors.value = error.response.data.errors;
+              console.log(error.response.data.status);
+              this.erroneous= true;
+              document.getElementsByClassName("errormsg")[0].innerHTML=error.response.data.message;
+            //}
+          }
+        });
     }
+
+    
   },
 };
 </script>
