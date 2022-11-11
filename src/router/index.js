@@ -6,22 +6,18 @@ import AuthLayout from "@/components/AuthLayout.vue";
 import PatientDashboard from "@/views/patient/PatientDashboard.vue";
 import PatientContinueRegister from "@/views/patient/ContinueRegister.vue";
 import PatientLayout from "@/components/PatientLayout.vue";
-import PatientAuthLayout from "@/components/PatientAuthLayout.vue";
-import PatientSignIn from "@/views/patient/SignIn.vue";
-import PatientForgotPassword from "@/views/patient/ForgotPassword.vue";
 
 // For Doctor
-import DoctorDashboard from "@/views/doctor/Dashboard.vue";
+import DoctorDashboard from "@/views/doctor/DoctorDashboard.vue";
 import DoctorContinueRegister from "@/views/doctor/ContinueRegister.vue";
 import DoctorLayout from "@/components/DoctorLayout.vue";
-import DoctorAuthLayout from "@/components/DoctorAuthLayout.vue";
-import DoctorSignIn from "@/views/doctor/SignIn.vue";
-import DoctorForgotPassword from "@/views/doctor/ForgotPassword.vue";
+
 
 //General
 import NotFound from "@/views/NotFound.vue";
 import SignUp from "@/views/SignUp.vue";
 import SelectType from "@/views/SelectType.vue";
+import SignIn from "@/views/SignIn.vue";
 import store from "@/store";
 
 const routes = [
@@ -74,11 +70,17 @@ const routes = [
   ///////////////////////
   {
     path: "/auth",
-    redirect: "/register",
+    redirect: "/auth/login",
     name: "Auth",
     component: AuthLayout,
-    meta: {isGuestNeutral: true},
+    meta: {isGuest: true},
     children: [
+      {
+        path: "/auth/login",
+        name: "SignIn",
+        component: SignIn,
+        props: true,
+      },
       {
         path: "/register",
         name: "SignUp",
@@ -91,62 +93,10 @@ const routes = [
         component: SelectType,
         props: true,
       },
-    ],
-  },
-
-
-  //Patient
-  ///
-  /////////////////////////
-  ///////////////////////
-  {
-    path: "/patient-auth",
-    redirect: "/patient/login",
-    name: "PatientAuth",
-    component: PatientAuthLayout,
-    meta: {isGuestPatient: true},
-    children: [
-      {
-        path: "/patient/login",
-        name: "PatientSignIn",
-        component: PatientSignIn,
-      },
-      {
-        path: "/patient/forgot-password",
-        name: "PatientForgotPassword",
-        component: PatientForgotPassword,
-        props: true,
-      },
       {
         path: "/patient/continue-registration",
         name: "PatientContinueRegister",
         component: PatientContinueRegister,
-        props: true,
-      },
-    ],
-  },
-
-
-  //Doctor
-  ///
-  /////////////////////////
-  ///////////////////////
-  {
-    path: "/doctor-auth",
-    redirect: "/doctor/login",
-    name: "DoctorAuth",
-    component: DoctorAuthLayout,
-    meta: {isGuestDoctor: true},
-    children: [
-      {
-        path: "/doctor/login",
-        name: "DoctorSignIn",
-        component: DoctorSignIn,
-      },
-      {
-        path: "/doctor/forgot-password",
-        name: "DoctorForgotPassword",
-        component: DoctorForgotPassword,
         props: true,
       },
       {
@@ -157,7 +107,6 @@ const routes = [
       },
     ],
   },
-
 
   {
     path: '/404',
@@ -175,12 +124,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.p_requiresAuth && !store.state.patient.token) {
-    next({ name: "PatientSignIn" });
-  } else if (store.state.patient.token && to.meta.isGuestPatient) {
-    next({ name: "PatientDashboard" });
+    next({ name: "SignIn" });
   }else if (to.meta.d_requiresAuth && !store.state.doctor.token) {
-    next({ name: "DoctorSignIn" });
-  }else if (store.state.doctor.token && to.meta.isGuestDoctor) {
+    next({ name: "SignIn" });
+  } else if (store.state.patient.token && to.meta.isGuest) {
+    next({ name: "PatientDashboard" });
+  }else if (store.state.doctor.token && to.meta.isGuest) {
     next({ name: "DoctorDashboard" });
   } else {
     next();

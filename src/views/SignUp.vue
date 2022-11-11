@@ -24,17 +24,7 @@
               Continue with email
             </VsudSocialButton>
           </div>
-          <div class="px-1 pt-0 text-center px-lg-2">
-            <p class="mx-auto mb-4 text-sm">
-              Already have an account?
-              <router-link
-              :to="{ name: 'Sign In' }"
-              class="text-info text-gradient font-weight-bold"
-              >
-                Sign in
-              </router-link>
-            </p>
-          </div>
+          
         </form>
 
         <form v-else role="form" class="text-start" @submit="verifyemail">
@@ -63,6 +53,17 @@
           Sign in with Google
         </VsudSocialButton>
         
+      </div>
+      <div class="px-1 pt-0 text-center card-footer px-lg-2">
+        <p class="mx-auto mb-4 text-sm">
+          Already have an account?
+          <router-link
+          :to="{ name: 'SignIn' }"
+          class="text-info text-gradient font-weight-bold"
+          >
+            Sign In
+          </router-link>
+        </p>
       </div>
 
     </div>
@@ -129,6 +130,7 @@ export default {
           this.loading = false;
           this.forotp.email=response.data.email;
           this.emailsent = true;
+          this.erroneous= false;
           console.log('successful');
           
         })

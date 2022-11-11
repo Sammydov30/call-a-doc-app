@@ -21,12 +21,10 @@ const store = createStore({
     patient: {
       data: {},
       token: sessionStorage.getItem("PTOKEN"),
-      loginid: sessionStorage.getItem("PLoginID"),
     },
     doctor: {
       data: {},
       token: sessionStorage.getItem("DTOKEN"),
-      loginid: sessionStorage.getItem("DLoginID"),
     },
     dashboard: {
       loading: false,
@@ -80,11 +78,6 @@ const store = createStore({
       state.patient.token = token;
       sessionStorage.setItem('PTOKEN', token);
     },
-    setPLoginId: (state, loginid) => {
-      state.patient.loginid = loginid;
-      sessionStorage.setItem('PLoginID', loginid);
-    },
-
 
     //Doctors
     setDoctor: (state, user) => {
@@ -93,10 +86,6 @@ const store = createStore({
     setDToken: (state, token) => {
       state.doctor.token = token;
       sessionStorage.setItem('DTOKEN', token);
-    },
-    setDLoginId: (state, loginid) => {
-      state.doctor.loginid = loginid;
-      sessionStorage.setItem('DLoginID', loginid);
     },
 
 
@@ -124,6 +113,31 @@ const store = createStore({
           return response;
         })
     },
+    login({commit}, user) {
+      return axiosClient.post('/auth/login', user)
+        .then((response) => {
+          return response;
+        })
+    },
+    sendemailotp({commit}, user) {
+      return axiosClient.post('/auth/emailotp', user)
+        .then((response) => {
+          return response;
+        })
+    },
+    checkemailotp({commit}, user) {
+      return axiosClient.post('/auth/verifyotp', user)
+        .then((response) => {
+          if (response.data.role=="1") {
+            commit('setPatient', response);
+            commit('setPToken', response.data.token);
+          } else {
+            commit('setDoctor', response);
+            commit('setDToken', response.data.token);
+          }
+          return response;
+        })
+    },
 
     //For Patients
     pcontinueregister({commit}, user) {
@@ -131,35 +145,9 @@ const store = createStore({
         .then((response) => {
           commit('setPatient', response);
           commit('setPToken', response.data.token);
-          commit('setPLoginId', response.data.loginid);
           return response;
         })
     },
-    plogin({commit}, user) {
-      return axiosClient.post('/customer/login', user)
-        .then((response) => {
-          commit('setPatient', response);
-          commit('setPToken', response.data.token);
-          commit('setPLoginId', response.data.loginid);
-          return response;
-        })
-    },
-    psendemailotp({commit}, user) {
-      return axiosClient.post('/customer/emailotp', user)
-        .then((response) => {
-          return response;
-        })
-    },
-    pcheckemailotp({commit}, user) {
-      return axiosClient.post('/customer/verifyotp', user)
-        .then((response) => {
-          commit('setPatient', response);
-          commit('setPToken', response.data.token);
-          commit('setPLoginId', response.data.loginid);
-          return response;
-        })
-    },
-
 
     //For Doctors
     dcontinueregister({commit}, user) {
@@ -167,35 +155,9 @@ const store = createStore({
         .then((response) => {
           commit('setDoctor', response);
           commit('setDToken', response.data.token);
-          commit('setDLoginId', response.data.loginid);
           return response;
         })
     },
-    dlogin({commit}, user) {
-      return axiosClient.post('/doctor/login', user)
-        .then((response) => {
-          commit('setDoctor', response);
-          commit('setDToken', response.data.token);
-          commit('setDLoginId', response.data.loginid);
-          return response;
-        })
-    },
-    dsendemailotp({commit}, user) {
-      return axiosClient.post('/doctor/emailotp', user)
-        .then((response) => {
-          return response;
-        })
-    },
-    dcheckemailotp({commit}, user) {
-      return axiosClient.post('/doctor/verifyotp', user)
-        .then((response) => {
-          commit('setDoctor', response);
-          commit('setDToken', response.data.token);
-          commit('setDLoginId', response.data.loginid);
-          return response;
-        })
-    },
-
 
 
   },
