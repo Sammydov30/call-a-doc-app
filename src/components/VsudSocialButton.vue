@@ -53,8 +53,8 @@ export default {
         align-items: center;
         padding: 6px 54px 6px 30px;
         gap: 20px;
-        width: 310px;
-        height: 52px;
+        width: 100% !important;
+        height: 42px;
         border-radius: 10px;
     }
     .blue{

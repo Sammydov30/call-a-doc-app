@@ -10,11 +10,9 @@
       <div
         id="navbar"
         class="mt-2 collapse navbar-collapse mt-sm-0 me-md-0 me-sm-4"
-        :class="$store.state.isRTL ? 'px-0' : 'me-sm-4'"
       >
         <div
-          class="pe-md-3 d-flex align-items-center"
-          :class="$store.state.isRTL ? 'me-md-auto' : 'ms-md-auto'"
+          class="pe-md-3 d-flex align-items-center ms-md-auto"
         >
           <div class="input-group">
             <span class="input-group-text text-body">
@@ -23,20 +21,18 @@
             <input
               type="text"
               class="form-control"
-              :placeholder="
-                $store.state.isRTL ? '' : 'Type here...'
-              "
+              placeholder="Type here..."
             />
           </div>
         </div>
         <ul class="navbar-nav justify-content-end">
           <li class="nav-item d-flex align-items-center">
             <router-link
-              :to="{ name: 'Sign In' }"
+              :to="{ name: 'PatientSignIn' }"
               class="px-0 nav-link font-weight-bold"
               :class="textWhite ? textWhite : 'text-body'"
             >
-              <i class="fa fa-user" :class="$store.state.isRTL ? 'ms-sm-2' : 'me-sm-1'"></i>
+              <i class="fa fa-user me-sm-1"></i>
               
               <span class="d-sm-inline d-none">Sign In</span>
             </router-link>
@@ -65,8 +61,7 @@
             </a>
           </li>
           <li
-            class="nav-item dropdown d-flex align-items-center"
-            :class="$store.state.isRTL ? 'ps-2' : 'pe-2'"
+            class="nav-item dropdown d-flex align-items-center pe-2"
           >
             <a
               id="dropdownMenuButton"

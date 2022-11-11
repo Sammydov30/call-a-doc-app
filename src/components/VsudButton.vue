@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 <template>
-  <button class="btn mb-0" :class="getClasses(variant, color, size, fullWidth, active)">
+  <button class="btn sbtn" :class="getClasses(variant, color, size, fullWidth, active)">
     <slot />
   </button>
 </template>
@@ -54,3 +54,17 @@ export default {
   },
 };
 </script>
+<style scoped>
+.sbtn{
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 54px 6px 30px;
+  gap: 20px;
+  width: 335px;
+  height: 42px;
+  border-radius: 10px;
+}
+</style>

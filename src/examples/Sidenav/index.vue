@@ -1,8 +1,7 @@
 <template>
   <aside
     id="sidenav-main"
-    class="my-3 overflow-auto border-0 sidenav navbar navbar-vertical navbar-expand-xs border-radius-xl"
-    :class="$store.state.isRTL ? 'me-3 rotate-caret' : 'ms-3'"
+    class="my-3 overflow-auto border-0 sidenav navbar navbar-vertical navbar-expand-xs border-radius-xl ms-3"
     :data-color="sidenavActiveBgColors"
   >
     <div class="sidenav-header">
@@ -13,7 +12,7 @@
       ></i>
       <a class="m-0 navbar-brand" href="/">
         <img :src="logo" class="navbar-brand-img h-100" alt="main_logo" />
-        <span class="ms-1 font-weight-bold">Vite Soft UI Dashboard</span>
+        <span class="ms-1 font-weight-bold">Patient Dashboard</span>
       </a>
     </div>
     <hr class="mt-0 horizontal dark" />
@@ -22,7 +21,7 @@
 </template>
 <script>
 import SidenavList from "./SidenavList.vue";
-import logo from "@/assets/img/logo-ct.png";
+import logo from "@/assets/img/logo.png";
 
 export default {
   name: "IndexComponent",

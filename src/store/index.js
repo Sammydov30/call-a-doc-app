@@ -7,7 +7,6 @@ const store = createStore({
     isPinned: true,
     showConfig: false,
     isTransparent: "",
-    isRTL: false,
     mcolor: "",
     isNavFixed: false,
     isAbsolute: false,
@@ -18,7 +17,14 @@ const store = createStore({
     showMain: true,
     user: {
       data: {},
-      token: null,
+    },
+    patient: {
+      data: {},
+      token: sessionStorage.getItem("PTOKEN"),
+    },
+    doctor: {
+      data: {},
+      token: sessionStorage.getItem("DTOKEN"),
     },
     dashboard: {
       loading: false,
@@ -59,27 +65,101 @@ const store = createStore({
     },
 
     //Back end
+
     setUser: (state, user) => {
       state.user.data = user;
     },
-    setToken: (state, token) => {
-      state.user.token = token;
-      sessionStorage.setItem('TOKEN', token);
+
+    //Patients
+    setPatient: (state, user) => {
+      state.patient.data = user;
     },
+    setPToken: (state, token) => {
+      state.patient.token = token;
+      sessionStorage.setItem('PTOKEN', token);
+    },
+
+    //Doctors
+    setDoctor: (state, user) => {
+      state.doctor.data = user;
+    },
+    setDToken: (state, token) => {
+      state.doctor.token = token;
+      sessionStorage.setItem('DTOKEN', token);
+    },
+
+
   },
   actions: {
     toggleSidebarColor({ commit }, payload) {
       commit("sidebarType", payload);
     },
 
+    //Back End
+
     register({commit}, user) {
-      return axiosClient.post('/customer/register', user)
+      return axiosClient.post('/register', user)
         .then((response) => {
           commit('setUser', response);
           //commit('setToken', data.token)
           return response;
         })
     },
+    verifyemail({commit}, user) {
+      return axiosClient.post('/verifyemail', user)
+        .then((response) => {
+          commit('setUser', response);
+          //commit('setToken', data.token)
+          return response;
+        })
+    },
+    login({commit}, user) {
+      return axiosClient.post('/auth/login', user)
+        .then((response) => {
+          return response;
+        })
+    },
+    sendemailotp({commit}, user) {
+      return axiosClient.post('/auth/emailotp', user)
+        .then((response) => {
+          return response;
+        })
+    },
+    checkemailotp({commit}, user) {
+      return axiosClient.post('/auth/verifyotp', user)
+        .then((response) => {
+          if (response.data.role=="1") {
+            commit('setPatient', response);
+            commit('setPToken', response.data.token);
+          } else {
+            commit('setDoctor', response);
+            commit('setDToken', response.data.token);
+          }
+          return response;
+        })
+    },
+
+    //For Patients
+    pcontinueregister({commit}, user) {
+      return axiosClient.post('/customer/continueregister', user)
+        .then((response) => {
+          commit('setPatient', response);
+          commit('setPToken', response.data.token);
+          return response;
+        })
+    },
+
+    //For Doctors
+    dcontinueregister({commit}, user) {
+      return axiosClient.post('/doctor/continueregister', user)
+        .then((response) => {
+          commit('setDoctor', response);
+          commit('setDToken', response.data.token);
+          return response;
+        })
+    },
+
+
   },
   getters: {},
 });
