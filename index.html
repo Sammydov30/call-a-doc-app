@@ -7,13 +7,44 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <link rel="icon" href="/favicon.ico" />
   <title>Call A Doctor</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700" rel="stylesheet" />
 
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <style>
+  .days div {
+    font-size: 11px !important;
+    margin: 0.37rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 100%;
+  }
+  
+  .days div:hover:not(.today) {
+    background-color: #007fdd;
+    border: 0;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .prev-date,
+  .next-date {
+    opacity: 0.5;
+  }
+  
+  .today {
+    background-color: #b52a0b !important;
+    color: #ffffff
+  }
+  </style>
 </head>
 
 <body class="bg-gray-100">

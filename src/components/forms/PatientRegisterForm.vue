@@ -40,7 +40,7 @@
 
                 <div class="col-md-6 mt-2">
                     <label class="form-label-h">Date of birth</label>
-                    <input v-model="user.dob" class="form-control form-input-h" type="date" placeholder="Date of birth">
+                    <input v-model="user.dob" class="form-control form-input-h" type="text" placeholder="Date of birth">
                 </div>
                 <div class="col-md-6 mt-2">
                     <label class="form-label-h">City</label>

@@ -3,7 +3,7 @@
         <div class="a-image">
             <img :src="image" class="img-fluid">
         </div>
-        <div class="a-texts">
+        <div class="a-texts mt-3">
             <p class="name">{{name}}</p>
             <span class="adate">{{adate}}</span>
             <p class="location">{{location}}</p>
@@ -53,7 +53,7 @@ export default {
     .appoint-card{
         padding: 20px 10px;
         background: #FFFFFF;
-        box-shadow: 0px 10px 30px rgba(0, 60, 104, 0.15);
+        box-shadow: 0px 5px 15px rgba(0, 60, 104, 0.15);
         border-radius: 16px;
         margin-top: 15px;
     }
@@ -73,15 +73,15 @@ export default {
         font-family: 'Montserrat';
         font-style: normal;
         font-weight: 500;
-        font-size: 22px;
-        line-height: 30px;
+        font-size: 18px;
+        line-height: 0px;
         color: #3E4C59;
     }
     .a-texts .adate{
         font-family: 'Montserrat';
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 13px;
         line-height: 20px;
         color: #1992D4;
     }

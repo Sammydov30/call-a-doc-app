@@ -23,9 +23,9 @@ export default {
 
 <style scoped>
     .dosage-card{
-        padding: 20px 30px;
+        padding: 10px 30px;
         background: #FFFFFF;
-        box-shadow: 0px 10px 30px rgba(0, 60, 104, 0.15);
+        box-shadow: 0px 5px 15px rgba(0, 60, 104, 0.15);
         border-radius: 16px;
         margin-top: 15px;
     }

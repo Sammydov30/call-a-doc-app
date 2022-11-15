@@ -1,58 +1,9 @@
 <template>  
   <div class="container-holder">
+    <MenuBarCard/>
     <div class="row full-holder">
-
-      <nav id="sidebarMenu" class="col-md-2 col-lg-1 d-md-block bg-light sidebar sidebarr collapse">
-        <div class="position-sticky pt-3 sidebar-sticky sidebarr-holder">
-          <div class="logo">
-            <img :src="logoimg" alt="" class="img-fluid" style="width: 50px;">
-          </div>
-          <ul class="nav flex-column list-iitems mt-5">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
-                <i class="fa fa-home"></i>
-                <!-- Dashboard -->
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fa fa-bullseye"></i>
-                <!-- Orders -->
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fa fa-list"></i>
-                <!-- Products -->
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fa fa-user"></i>
-                <!-- Customers -->
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fa fa-th-list"></i>
-                <!-- Reports -->
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fa fa-love"></i>
-                <!-- Integrations -->
-              </a>
-            </li>
-          </ul>
-          <p class="plus-symbol">
-            <a href="#" style="color: #fff;"><i class="fa fa-plus"></i></a>
-          </p>
-        </div>
-      </nav>
-  
-      <main class="col-md-8 ms-sm-auto col-lg-8 main-holder">
-        <header class="navbar sticky-top p-0 shadow myheader">
+      <main class="col-md-12 ms-sm-auto col-lg-12 main-holder">
+        <header class="navbar sticky-top px-4 shadow myheader">
           <div class="row">
 
           </div>
@@ -68,32 +19,29 @@
           </div>
         </header>
 
-        <div class="content-all">
+        <div class="content-all ps-3">
           <router-view :key="$route.path"></router-view>
         </div>
-
-
-
       </main>
-      <aside class="col-md-3 col-lg-3">
-        <div class="col-lg-3 third navbar-nav">
-          <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">...</a>
-          </div>
-        </div>
-      </aside>
-
     </div>
+    <aside class="aside-holder">
+      <SideBarCard></SideBarCard>
+    </aside>
   </div>
   
 </template>
 
 <script>
+import MenuBarCard from '@/components/mycomponents/MenuBarCard.vue'
+import SideBarCard from '@/components/mycomponents/SideBarCard.vue'
 import logoimg from "@/assets/img/logo.png";
 import pageimg from "@/assets/img/screen.png";
+
 export default {
   name: "DoctorLayout",
   components: {
+    MenuBarCard,
+    SideBarCard,
   },
   data() {
     return {
@@ -109,43 +57,10 @@ export default {
 
 
 <style scoped>
-.sidebarr-holder{
-  width: 100%;
-  height: 100%;
-  background: #FFFFFF !important;
-}
-.sidebarr{
-  background: #FFFFFF !important;
-  padding-top: 30px;
-  display: grid !important;
-  justify-content: center;
-  width: 100px;
-}
-.list-iitems li{
-  margin-top: 20px;
-}
 
-.plus-symbol{
-  position: absolute;
-  top: 90%;
-  background: #C599FF;
-  padding: 8px 15px;
-  border-radius: 12px;
-}
-.nav-link {
-  color: #201d1f !important;
-  text-align: center;
-}
-
-.nav-link:hover, .nav-link:focus {
-  color: #FFFFFF !important;
-  background: #007FDD;
-  border-radius: 10px;
-}
-.nav-link.active{
-  color: #FFFFFF !important;
-  background: #007FDD;
-  border-radius: 10px;
+.container-holder{
+  display: flex;
+  position: fixed;
 }
 .myheader{
   background: transparent !important;
@@ -170,10 +85,23 @@ export default {
 }
 .main-holder{
   padding-top: 20px;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 2rem;
+  padding-right: 5px;
 }
 .full-holder{
   height: 100vh;
+  width: 75%;
+}
+.aside-holder{
+  background: #FFFFFF;
+  height: 100vh;
+  width: 25%;
+  overflow-y: scroll;
+}
+.content-all{
+  height: 100vh;
+  overflow-y: scroll;
+  padding: 10px;
+  padding-bottom: 10rem;
 }
 </style>

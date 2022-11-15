@@ -62,7 +62,7 @@ export default {
         font-family: 'Montserrat';
         font-style: normal;
         font-weight: 500;
-        font-size: 22px;
+        font-size: 18px;
         line-height: 10px;
         color: #3E4C59;
     }
@@ -70,14 +70,14 @@ export default {
         font-family: 'Montserrat';
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 13px;
         line-height: 0px;
         color: #52606D;
     }
     .a-texts .description{
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 13px;
         line-height: 12px;
         color: #52606D;
     }

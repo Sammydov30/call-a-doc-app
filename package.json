@@ -26,7 +26,8 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-vue": "^8.5.0",
     "prettier": "2.6.0",
-    "sass": "^1.49.9",
+    "saas": "^1.0.0",
+    "sass": "^1.56.1",
     "vite": "^2.8.0",
     "vite-plugin-rewrite-all": "^1.0.0"
   }

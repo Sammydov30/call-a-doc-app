@@ -24,7 +24,7 @@ const routes = [
 
   //Customer
   {
-    path: "/",
+    path: "/patient",
     redirect: "/patient/dashboard",
     component: PatientLayout,
     meta: { p_requiresAuth: true },
@@ -75,6 +75,11 @@ const routes = [
     component: AuthLayout,
     meta: {isGuest: true},
     children: [
+      {
+        path: "/login",
+        name: "/login",
+        redirect: "/auth/login",
+      },
       {
         path: "/auth/login",
         name: "SignIn",
